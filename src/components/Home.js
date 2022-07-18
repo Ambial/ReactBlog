@@ -15,17 +15,25 @@ function Home() {
     ])
 
     useEffect(() => {
-        console.log('useEffect ran!')
+        fetch('http://localhost:7777/blogs')
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            setBlogs(data)
+        })
     }, [])
 
   return (
     <div className="home">
+        {blogs && <>
         <BlogList blogs={blogs} 
                   title={"All blogs"} 
                   handleDelete={handleDelete}/>
         <BlogList blogs={blogs.filter(entry => entry.author.toLowerCase() === 'mario')} 
                   title={"Mario's blogs"}
                   handleDelete={handleDelete}/>
+        </>}
     </div>
   )
 }
