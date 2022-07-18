@@ -1,35 +1,9 @@
-import { useEffect, useState } from "react"
+import useFetch from "../customHooks/useFetch"
 import BlogList from "./BlogList"
+import { BASE_URL, BLOGS_PATH } from "../utils/consts"
 
 function Home() {
-
-    const handleDelete = (idOfBlogToDelete) => {
-        setBlogs(blogs.filter(blog => blog.id !== idOfBlogToDelete))
-      }
-
-    const [blogs, setBlogs] = useState([])
-
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-
-    useEffect(() => {
-            fetch('http://localhost:7777/blogs')
-                .then(res => {
-                    if (!res.ok) {
-                        throw Error("Error fetching data for that resource")
-                    }
-                    return res.json()
-                })
-                .then(data => {
-                    setError(null)
-                    setBlogs(data)
-                    setIsLoading(false)
-                })
-                .catch(err => {
-                    setIsLoading(false)
-                    setError(err.message)
-                })
-    }, [])
+  const { data:blogs, isLoading, error} = useFetch(`${BASE_URL}${BLOGS_PATH}`)
 
   return (
     <div className="home">
@@ -39,10 +13,10 @@ function Home() {
         {blogs.length > 0 ? <>
         <BlogList blogs={blogs} 
                   title={"All blogs"} 
-                  handleDelete={handleDelete}/>
+                  />
         <BlogList blogs={blogs.filter(entry => entry.author.toLowerCase() === 'mario')} 
                   title={"Mario's blogs"}
-                  handleDelete={handleDelete}/>
+                  />
         </> : ''}
         </>
         : <div>Loading...</div>}
