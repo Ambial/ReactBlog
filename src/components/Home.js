@@ -1,5 +1,5 @@
 import { useState } from "react"
-import BlogEntry from "./BlogEntry"
+import BlogList from "./BlogList"
 
 function Home() {
 
@@ -11,10 +11,7 @@ function Home() {
 
   return (
     <div className="home">
-        <h2>Homepage</h2>
-        {
-            blogs.map(blog => <BlogEntry blog={blog} key={blog.id}/>
-        )}
+        <BlogList blogs={blogs} title={"All blogs"}/>
     </div>
   )
 }
