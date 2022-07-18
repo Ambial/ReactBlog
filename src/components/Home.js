@@ -4,7 +4,6 @@ import BlogList from "./BlogList"
 function Home() {
 
     const handleDelete = (idOfBlogToDelete) => {
-        console.log(`Let's delete the blog with the id ${idOfBlogToDelete}`)
         setBlogs(blogs.filter(blog => blog.id !== idOfBlogToDelete))
       }
 
@@ -14,18 +13,23 @@ function Home() {
         { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
     ])
 
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
-        fetch('http://localhost:7777/blogs')
-        .then(res => {
-            return res.json()
-        })
-        .then(data => {
-            setBlogs(data)
-        })
+            fetch('http://localhost:7777/blogs')
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setBlogs(data)
+                setIsLoading(false)
+            })
     }, [])
 
   return (
     <div className="home">
+        {!isLoading ?
+        <>
         {blogs && <>
         <BlogList blogs={blogs} 
                   title={"All blogs"} 
@@ -34,6 +38,8 @@ function Home() {
                   title={"Mario's blogs"}
                   handleDelete={handleDelete}/>
         </>}
+        </>
+        : <div>Loading...</div>}
     </div>
   )
 }
