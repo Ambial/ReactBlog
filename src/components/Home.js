@@ -3,6 +3,11 @@ import BlogList from "./BlogList"
 
 function Home() {
 
+    const handleDelete = (idOfBlogToDelete) => {
+        console.log(`Let's delete the blog with the id ${idOfBlogToDelete}`)
+        setBlogs(blogs.filter(blog => blog.id !== idOfBlogToDelete))
+      }
+
     const [blogs, setBlogs] = useState([
         { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
         { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
@@ -11,7 +16,12 @@ function Home() {
 
   return (
     <div className="home">
-        <BlogList blogs={blogs} title={"All blogs"}/>
+        <BlogList blogs={blogs} 
+                  title={"All blogs"} 
+                  handleDelete={handleDelete}/>
+        <BlogList blogs={blogs.filter(entry => entry.author.toLowerCase() === 'mario')} 
+                  title={"Mario's blogs"}
+                  handleDelete={handleDelete}/>
     </div>
   )
 }
