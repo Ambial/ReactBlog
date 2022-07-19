@@ -1,12 +1,12 @@
 import useFetch from "../customHooks/useFetch"
-import BlogList from "./BlogList"
+import BlogList from "../components/BlogList"
 import { BASE_URL, BLOGS_PATH } from "../utils/consts"
 
 function Home() {
   const { data:blogs, isLoading, error} = useFetch(`${BASE_URL}${BLOGS_PATH}`)
 
   return (
-    <div className="home">
+    <div className="content">
         {error && <div>{error}</div>}
         {!isLoading ?
         <>
