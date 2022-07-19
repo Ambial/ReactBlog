@@ -3,10 +3,12 @@ import Navbar from "../components/Navbar"
 
 function SharedLayout() {
   return (
-    <>        
-        <Navbar />      
-        <Outlet />  
-    </>
+    <div>  
+        <Navbar />
+        <section className="content">
+          <Outlet /> 
+        </section>         
+    </div>
   )
 }
 

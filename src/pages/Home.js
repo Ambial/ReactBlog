@@ -6,7 +6,7 @@ function Home() {
   const { data:blogs, isLoading, error} = useFetch(`${BASE_URL}${BLOGS_PATH}`)
 
   return (
-    <div className="content">
+    <div >
         {error && <div>{error}</div>}
         {!isLoading ?
         <>
