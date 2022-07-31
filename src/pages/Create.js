@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { BASE_URL, BLOGS_PATH } from "../utils/consts"
+import { useNavigate } from "react-router-dom"
 
 function Create() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [author, setAuthor] = useState('mario')
   const [isLoading, setIsLoading] = useState(false)
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,7 +19,10 @@ function Create() {
       method:'POST',
       headers: {"Content-Type": "application/json" },
       body: JSON.stringify(newBlogEntry)
-    }).then(() => setIsLoading(false))
+    }).then(() => {
+      setIsLoading(false)
+      navigate('/')
+    })
   }
 
   return (

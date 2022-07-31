@@ -23,6 +23,12 @@
       "body": "I want the add blog button to be disabled and displaying a loading indication while a new blog is being posted",
       "author": "yoshi",
       "id": 4
+    },
+    {
+      "title": "Add Programmatic Redirects",
+      "body": "I want to programmatically redirect to the home page once a new blog was posted",
+      "author": "yoshi",
+      "id": 5
     }
   ]
 }
