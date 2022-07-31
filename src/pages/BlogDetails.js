@@ -6,8 +6,6 @@ function BlogDetails() {
   const { id } = useParams()
   const { data:blog, isLoading, error} = useFetch(`${BASE_URL}${BLOGS_PATH}/${id}`)
 
-  console.log(blog)
-
   return (
     <div className="blog-details">
         { isLoading && <div>Still loading...</div>}

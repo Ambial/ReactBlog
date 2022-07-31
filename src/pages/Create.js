@@ -1,14 +1,29 @@
 import { useState } from "react"
+import { BASE_URL, BLOGS_PATH } from "../utils/consts"
 
 function Create() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [author, setAuthor] = useState('mario')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newBlogEntry = {title, body, author}
+
+    setIsLoading(true)
+
+    fetch(`${BASE_URL}${BLOGS_PATH}`,{
+      method:'POST',
+      headers: {"Content-Type": "application/json" },
+      body: JSON.stringify(newBlogEntry)
+    }).then(() => setIsLoading(false))
+  }
 
   return (
     <div className="create">
       <h2>Add a new blog entry</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Blog title:</label>
         <input type="text"
                required
@@ -27,7 +42,8 @@ function Create() {
           <option value="luigi">luigi</option>
           <option value="yoshi">yoshi</option>
         </select>
-        <button>Add blog</button>
+        {!isLoading && <button>Add blog</button>}
+        {isLoading && <button disabled>Posting new blog...</button>}
       </form>
     </div>
   )
